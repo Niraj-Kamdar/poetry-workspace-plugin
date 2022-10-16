@@ -50,4 +50,4 @@ def get_total_coverage(ctx) -> str:
     match = re.search(r"TOTAL.*?([\d.]+%)", output)
     if match is None:
         raise RuntimeError(f"Regex failed on output: {output}")
-    return match.group(1)
+    return match[1]
