@@ -51,16 +51,16 @@ class WorkspaceAddCommand(Command):
         try:
             local_config = pyproject.poetry_config
         except PyProjectException as exc:
-            error_message = "  - {}\n".format(str(exc))
+            error_message = f"  - {str(exc)}\n"
         else:
             # Checking validity
             check_result = Factory.validate(local_config)
             if check_result["errors"]:
-                error_message = ""
-                for error in check_result["errors"]:
-                    error_message += "  - {}\n".format(error)
-
+                error_message = "".join(f"  - {error}\n" for error in check_result["errors"])
         if error_message:
-            raise RuntimeError(f"The Poetry configuration at {str(path)!r} is invalid:\n" + error_message)
+            raise RuntimeError(
+                f"The Poetry configuration at {str(path)!r} is invalid:\n{error_message}"
+            )
+
 
         return pyproject.data["tool"]["poetry"]["name"]

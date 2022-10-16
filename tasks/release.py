@@ -139,9 +139,7 @@ def color_line(line: str) -> str:
         return colored(line, "green")
     if line.startswith("-"):
         return colored(line, "red")
-    if line.startswith("^"):
-        return colored(line, "blue")
-    return line
+    return colored(line, "blue") if line.startswith("^") else line
 
 
 def tag_release(ctx, release_tag: str):
